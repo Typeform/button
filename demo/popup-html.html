@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Typeform Button Demo</title>
+  </head>
+  <body>
+    <h1>Typeform Button Demo - Popup HTML</h1>
+    <button data-tf-embed-admin data-tf-embed-admin-callback="handleSelect">select typeform</button>
+    <ul id="typeforms"></ul>
+    <script src="dist/button.js"></script>
+    <script>
+      function handleEdit(action, formId) {
+        console.log(`form ${formId} was edited`)
+      }
+      function handleSelect(action, formId) {
+        console.log(action, formId)
+        const editButton = `<button data-tf-embed-admin data-tf-embed-admin-action="edit" data-tf-embed-admin-payload="${formId}" data-tf-embed-admin-callback="handleEdit">edit</button>`
+        document.querySelector('#typeforms').innerHTML += `<li>${formId} ${editButton}</li>`
+        window.tfEmbedAdmin.reload()
+      }
+    </script>
+  </body>
+</html>

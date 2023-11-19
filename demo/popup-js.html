@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Typeform Button Demo</title>
+  </head>
+  <body>
+    <h1>Typeform Button Demo - Popup JS</h1>
+    <script src="dist/button.js"></script>
+    <script>
+      const callback = (action, formId) => {
+        if (action === 'edit') {
+          console.log(`form ${formId} was edited`)
+          return
+        }
+
+        console.log('selected form:', formId)
+
+        const li = document.createElement('li')
+        li.innerText = `Form: ${formId}`
+
+        const button = document.createElement('button')
+        button.onclick = () => editTypeform(formId)
+        button.innerText = 'Edit'
+        li.append(button)
+
+        document.querySelector('#typeforms').append(li)
+      }
+      const selectTypeform = () => {
+        window.tfEmbedAdmin.open({ callback })
+      }
+      const editTypeform = (payload) => {
+        window.tfEmbedAdmin.open({
+          callback,
+          action: 'edit',
+          payload,
+        })
+      }
+    </script>
+    <button onclick="selectTypeform()">select form</button>
+    <ul id="typeforms"></ul>
+  </body>
+</html>

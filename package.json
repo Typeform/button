@@ -1,0 +1,39 @@
+{
+  "name": "button",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "esbuild index=src/index.ts button=src/browser.ts --bundle",
+    "watch": "yarn build --watch",
+    "dist": "yarn build --outdir=dist",
+    "start": "yarn watch --serve=9090 --servedir=demo --outdir=demo/dist",
+    "lint": "eslint src --ext .js,.ts,.jsx,.tsx --max-warnings=0 && yarn prettier-check",
+    "prettier-check": "prettier --check . --ignore-path .eslintignore",
+    "prettier": "prettier --write . --ignore-path .eslintignore",
+    "test": "jest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/config-conventional": "^18.4.2",
+    "@testing-library/dom": "^9.3.3",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@typeform/eslint-config": "^6.0.3",
+    "@types/jest": "^29.5.8",
+    "@typescript-eslint/parser": "^6.11.0",
+    "commitlint": "^18.4.2",
+    "esbuild": "^0.19.6",
+    "eslint": "^8.54.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^22.1.0",
+    "prettier": "^3.1.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "testEnvironment": "jsdom",
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
+  "transform": {
+    "^.+\\.(ts|tsx)$": "ts-jest"
+  },
+  "testMatch": ["**/src/**/*.(spec|test).(ts|tsx)"]
+}
