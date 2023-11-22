@@ -47,7 +47,7 @@
     <script>
       const fetchTypeformDetails = async (formId) => {
         const result = await fetch(
-          `https://form.typeform.com/oembed?url=${encodeURIComponent(`https://form.typeform.com/to/${formId}`)}`
+          `https://form.typeform.com/oembed?url=${encodeURIComponent(`https://form.typeform.com/to/${formId}`)}`,
         )
         if (!result.ok) {
           return {}

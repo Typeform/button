@@ -35,5 +35,6 @@
     "prettier": "^3.1.0",
     "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
-  }
+  },
+  "prettier": "@typeform/eslint-config/prettier"
 }

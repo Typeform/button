@@ -8,7 +8,7 @@ describe('#getEmbedAdminDefaultAppName', () => {
   })
 
   it('should return default app name', () => {
-    window.location.hostname = null as any
+    window.location.hostname = null as unknown as string
     expect(getEmbedAdminDefaultAppName()).toBe(DEFAULT_EMBED_ADMIN_APP_NAME)
   })
 })

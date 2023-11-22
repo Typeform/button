@@ -18,7 +18,7 @@ describe('#buildPopup', () => {
     expect(window.open).toHaveBeenCalledWith(
       'foo',
       '_blank',
-      'popup,titlebar=no,directories=0,location=no,toolbar=no,menubar=no,resizable=yes,width=1120,height=650,left=40,top=125'
+      'popup,titlebar=no,directories=0,location=no,toolbar=no,menubar=no,resizable=yes,width=1120,height=650,left=40,top=125',
     )
   })
 

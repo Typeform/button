@@ -17,11 +17,11 @@ describe('#addMessageHandler', () => {
 
   describe('when message is received', () => {
     const customCallback = jest.fn()
-    let messageHandler: any
+    let messageHandler: EventListener
 
     beforeEach(() => {
       jest.spyOn(window, 'addEventListener').mockImplementationOnce((_, handler) => {
-        messageHandler = handler as any
+        messageHandler = handler as EventListener
       })
       addMessageHandler(customCallback)
     })
@@ -31,7 +31,7 @@ describe('#addMessageHandler', () => {
       { origin: MESSAGE_ORIGINS_WHITELIST[0] },
       { origin: MESSAGE_ORIGINS_WHITELIST[0], data: { type: 'foobar', payload: { id: '123' } } },
       { origin: 'invalid', data: { type: MessageType.SELECT, payload: { id: '123' } } },
-    ])('should not call callback function for invalid event %j', (event) => {
+    ] as Event[])('should not call callback function for invalid event %j', (event) => {
       messageHandler(event)
       expect(customCallback).not.toHaveBeenCalled()
     })
@@ -40,7 +40,7 @@ describe('#addMessageHandler', () => {
       messageHandler({
         origin: MESSAGE_ORIGINS_WHITELIST[0],
         data: { type: MessageType.SELECT, payload: { id: '123' } },
-      })
+      } as unknown as Event)
       expect(customCallback).toHaveBeenCalledWith('123')
     })
   })
