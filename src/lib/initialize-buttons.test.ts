@@ -30,7 +30,7 @@ describe('#initializeButtons', () => {
   it('should initialize button for iframe', () => {
     window.callback = () => {}
     document.body.innerHTML =
-      '<a data-tf-embed-admin data-tf-embed-admin-type="iframe" data-tf-embed-admin-action="edit" data-tf-embed-admin-payload="1234" data-tf-embed-admin-app-name="jest-app" data-tf-embed-admin-callback="callback"></a>'
+      '<a data-tf-embed-admin data-tf-embed-admin-type="iframe" data-tf-embed-admin-action="edit" data-tf-embed-admin-form-id="1234" data-tf-embed-admin-app-name="jest-app" data-tf-embed-admin-callback="callback"></a>'
     window.open = jest.fn()
     initializeButtons()
 

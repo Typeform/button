@@ -3,7 +3,11 @@ import { buildIframe } from './build-iframe'
 import { buildPopup } from './build-popup'
 import { addMessageHandler, EmbedAdminAction } from './add-message-handler'
 
-export type EmbedAdminCallback = (action: EmbedAdminAction, formId: string) => void
+export type EmbedAdminActionPayload = {
+  formId: string
+}
+
+export type EmbedAdminCallback = (action: EmbedAdminAction, payload: EmbedAdminActionPayload) => void
 
 export interface TypeformEmbedAdmin {
   open: OpenTypeformEmbedAdmin
@@ -11,24 +15,35 @@ export interface TypeformEmbedAdmin {
 
 export type EmbedAdminType = 'iframe' | 'popup'
 
-interface EmbedAdminConfig {
+interface BaseActionConfig {
   type: EmbedAdminType
-  action: EmbedAdminAction
-  payload?: string
   appName?: string
   callback: EmbedAdminCallback
 }
 
-type OpenTypeformEmbedAdmin = (config: EmbedAdminConfig) => void
+interface SelectActionConfig extends BaseActionConfig {
+  action: 'select'
+}
+
+interface EditActionConfig extends BaseActionConfig {
+  action: 'edit'
+  formId: string // This makes `formId` required when `action` is set to `'edit'`
+}
+
+type EmbedAdminActionConfig = SelectActionConfig | EditActionConfig
+
+type OpenTypeformEmbedAdmin = (config: EmbedAdminActionConfig) => void
+
+const hasFormId = (config: EmbedAdminActionConfig): config is EditActionConfig => config.action === 'edit'
 
 export const open: OpenTypeformEmbedAdmin = (config) => {
-  const { type, action = 'select', payload, appName, callback } = config
-  const url = getEmbedAdminUrl(action, payload, appName ?? getEmbedAdminDefaultAppName())
+  const { type, action = 'select', appName, callback } = config
+  const formId = hasFormId(config) ? config.formId : undefined
+  const url = getEmbedAdminUrl(action, appName ?? getEmbedAdminDefaultAppName(), formId)
 
   const removeMessageHandler = addMessageHandler((formId: string) => {
-    removeMessageHandler()
     close()
-    callback && callback(action, formId)
+    callback && callback(action, { formId })
   })
 
   const { close } = type === 'iframe' ? buildIframe(url, removeMessageHandler) : buildPopup(url, removeMessageHandler)

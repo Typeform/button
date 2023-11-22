@@ -1,7 +1,7 @@
 import { EMBED_ADMIN_BASE_URL } from './constants'
 
-export const getEmbedAdminUrl = (action: string, formId?: string, embedAdminAppName?: string) => {
-  const embedAdminQueryString = `?isEmbedAdmin=${embedAdminAppName}`
+export const getEmbedAdminUrl = (action: string, embedAdminAppName: string, formId?: string) => {
+  const embedAdminQueryString = `?isEmbedAdmin=${encodeURIComponent(embedAdminAppName)}`
   switch (action) {
     case 'edit':
       if (!formId) {

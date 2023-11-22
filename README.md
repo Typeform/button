@@ -48,7 +48,7 @@ You can pass options as object to the `open` method:
 window.tfEmbedAdmin.open({
   type: 'iframe',
   action: 'edit',
-  payload: myTypeformId,
+  formId: myTypeformId,
   appName: 'my-app',
   callback: (action, id) => console.log(`action: ${action}, form id: ${id}`),
 })
@@ -61,7 +61,7 @@ Or you can pass them as attributes to the HTML button with `data-tf-embed-admin-
   data-tf-embed-admin
   data-tf-embed-admin-type="iframe"
   data-tf-embed-admin-action="edit"
-  data-tf-embed-admin-payload="123456"
+  data-tf-embed-admin-form-id="123456"
   data-tf-embed-admin-app-name="my-app"
   data-tf-embed-admin-callback="embedAdminCallback"
 >
