@@ -34,13 +34,13 @@ Or using JavaScript:
 
 ## Options
 
-| name     | type                                     | description                                                                                                                                                                                        | default value              |
-| -------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| type     | `"iframe" \| "popup"`                    | Open embed admin in popup (default) or iframe. **Note:** If you want to implement iframe, please [contant us to get your domain whitelisted](https://www.typeform.com/help/contact/360000510012/). | `"popup"`                  |
-| action   | `"select" \| "edit"`                     | Action to perform. If you want to "edit" you also need to pass form ID as `payload`                                                                                                                | `"select"`                 |
-| payload  | string                                   | Form ID, required for "edit" action.                                                                                                                                                               | `undefined`                |
-| appName  | string                                   | Application name                                                                                                                                                                                   | `window.location.hostname` |
-| callback | (action: string, formId: string) => void | Method to be called when a form is selected or edited in Typeform Admin UI.                                                                                                                        | `undefined`                |
+| name     | type                                     | description                                                                                                                                                                                    | default value              |
+| -------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| type     | `"iframe" \| "popup"`                    | Open embed admin in popup (default) or iframe. **Note:** If you want to implement iframe, please [contact us to get your domain allowed](https://www.typeform.com/help/contact/360000510012/). | `"popup"`                  |
+| action   | `"select" \| "edit"`                     | Action to perform. If you want to "edit" you also need to pass form ID as `payload`                                                                                                            | `"select"`                 |
+| payload  | string                                   | Form ID, required for "edit" action.                                                                                                                                                           | `undefined`                |
+| appName  | string                                   | Application name                                                                                                                                                                               | `window.location.hostname` |
+| callback | (action: string, formId: string) => void | Method to be called when a form is selected or edited in Typeform Admin UI.                                                                                                                    | `undefined`                |
 
 You can pass options as object to the `open` method:
 
