@@ -28,14 +28,10 @@
         document.querySelector('#typeforms').append(li)
       }
       const selectTypeform = () => {
-        window.tfEmbedAdmin.open({ callback })
+        window.tfEmbedAdmin.selectForm(callback)
       }
       const editTypeform = (formId) => {
-        window.tfEmbedAdmin.open({
-          callback,
-          action: 'edit',
-          formId,
-        })
+        window.tfEmbedAdmin.editForm(formId, callback)
       }
     </script>
     <button onclick="selectTypeform()">select form</button>

@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Typeform Button Demo - Popup HTML</h1>
-    <button data-tf-embed-admin data-tf-embed-admin-callback="handleSelect">select typeform</button>
+    <button data-tf-embed-admin-select data-tf-embed-admin-callback="handleSelect">select typeform</button>
     <ul id="typeforms"></ul>
     <script src="dist/button.js"></script>
     <script>
@@ -16,9 +16,9 @@
       }
       function handleSelect(action, { formId }) {
         console.log(action, formId)
-        const editButton = `<button data-tf-embed-admin data-tf-embed-admin-action="edit" data-tf-embed-admin-form-id="${formId}" data-tf-embed-admin-callback="handleEdit">edit</button>`
+        const editButton = `<button data-tf-embed-admin-edit="${formId}" data-tf-embed-admin-callback="handleEdit">edit</button>`
         document.querySelector('#typeforms').innerHTML += `<li>${formId} ${editButton}</li>`
-        window.tfEmbedAdmin.reload()
+        window.tfEmbedAdmin.load()
       }
     </script>
   </body>

@@ -45,6 +45,8 @@
 
     <!-- custom script -->
     <script>
+      window.tfEmbedAdmin.configure({ type: 'iframe', appName: 'embed-demo-app' })
+
       const fetchTypeformDetails = async (formId) => {
         const result = await fetch(
           `https://form.typeform.com/oembed?url=${encodeURIComponent(`https://form.typeform.com/to/${formId}`)}`,
@@ -96,15 +98,10 @@
       }
       const onEdit = (action, { formId }) => {}
       const selectTypeform = () => {
-        window.tfEmbedAdmin.open({ callback: onSelect, type: 'iframe' })
+        window.tfEmbedAdmin.selectForm(onSelect)
       }
       const editTypeform = (formId) => {
-        window.tfEmbedAdmin.open({
-          callback: onEdit,
-          type: 'iframe',
-          action: 'edit',
-          formId,
-        })
+        window.tfEmbedAdmin.editForm(formId, onEdit)
       }
     </script>
     <button onclick="selectTypeform()">select form</button>

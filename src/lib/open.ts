@@ -9,14 +9,10 @@ export type EmbedAdminActionPayload = {
 
 export type EmbedAdminCallback = (action: EmbedAdminAction, payload: EmbedAdminActionPayload) => void
 
-export interface TypeformEmbedAdmin {
-  open: OpenTypeformEmbedAdmin
-}
-
 export type EmbedAdminType = 'iframe' | 'popup'
 
-interface BaseActionConfig {
-  type: EmbedAdminType
+export interface BaseActionConfig {
+  type?: EmbedAdminType
   appName?: string
   callback: EmbedAdminCallback
 }
@@ -30,7 +26,7 @@ interface EditActionConfig extends BaseActionConfig {
   formId: string // This makes `formId` required when `action` is set to `'edit'`
 }
 
-type EmbedAdminActionConfig = SelectActionConfig | EditActionConfig
+export type EmbedAdminActionConfig = SelectActionConfig | EditActionConfig
 
 type OpenTypeformEmbedAdmin = (config: EmbedAdminActionConfig) => void
 

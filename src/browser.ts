@@ -1,12 +1,12 @@
 import { initializeButtons } from './lib/initialize-buttons'
 
-import * as lib from './index'
+import { lib } from './index'
 
 export {}
 
 declare global {
   interface Window {
-    tfEmbedAdmin: lib.TypeformEmbedAdmin & { reload: VoidFunction }
+    tfEmbedAdmin: typeof lib & { load: VoidFunction }
   }
 }
 
@@ -16,5 +16,5 @@ document.addEventListener('DOMContentLoaded', load, false)
 
 window.tfEmbedAdmin = {
   ...lib,
-  reload: load,
+  load,
 }
