@@ -150,7 +150,7 @@ Or [open the demo in CodeSandbox](https://codesandbox.io/s/github/Typeform/butto
 
 Requiremenets:
 
-- node >= 18
+- node >= 20
 - yarn
 
 Install dependencies:

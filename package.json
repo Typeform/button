@@ -14,7 +14,10 @@
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx --max-warnings=0 && yarn prettier-check",
     "prettier-check": "prettier --check . --ignore-path .eslintignore",
     "prettier": "prettier --write . --ignore-path .eslintignore",
-    "test": "jest"
+    "test": "jest",
+    "release": "yarn release:npm && yarn release:aws",
+    "release:npm": "echo 'todo'",
+    "release:aws": "DEBUG=jarvis yarn run jarvis deploy --path ./dist"
   },
   "dependencies": {},
   "devDependencies": {
