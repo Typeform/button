@@ -14,7 +14,7 @@ As HTML button:
 <script src="dist/button.js"></script>
 <script>
   // you still need to implement the callback in JavaScript
-  function handleSelect(action, formId) {
+  function handleSelect(action, { formId }) {
     console.log(`you have selected form with id ${formId}`)
   }
 </script>
@@ -29,7 +29,7 @@ Or using JavaScript:
   // you only need to configure settings once
   window.tfEmbedAdmin.configure({ type: 'iframe' })
 
-  const callback = (action, formId) => {
+  const callback = (action, { formId }) => {
     console.log(`you have selected form with id ${formId}`)
   }
 
@@ -63,7 +63,7 @@ window.tfEmbedAdmin.configure({
 })
 ```
 
-When using HTML API you don't need to call this method separately. You need to speciffy config options on the button itself.
+When using HTML API you don't need to call this method separately. You need to specify config options on the button itself.
 
 ### selectForm(callback)
 
@@ -71,9 +71,9 @@ Open embed admin to select form or create a new one.
 
 It accepts `callback` method:
 
-| name     | type                                       | description                                                                 |
-| -------- | ------------------------------------------ | --------------------------------------------------------------------------- |
-| callback | `(action: string, formId: string) => void` | Method to be called when a form is selected or edited in Typeform Admin UI. |
+| name     | type                                                    | description                                                       |
+| -------- | ------------------------------------------------------- | ----------------------------------------------------------------- |
+| callback | `(action: string, payload: { formId: string }) => void` | Method to be called when a form is selected in Typeform Admin UI. |
 
 Example with JavaScript:
 
@@ -105,10 +105,10 @@ Open embed admin to edit a specific form.
 
 It accepts `formId` string and `callback` method:
 
-| name     | type                                       | description                                                                 |
-| -------- | ------------------------------------------ | --------------------------------------------------------------------------- |
-| formId   | `string`                                   | ID of the typeform to edit                                                  |
-| callback | `(action: string, formId: string) => void` | Method to be called when a form is selected or edited in Typeform Admin UI. |
+| name     | type                                                    | description                                                     |
+| -------- | ------------------------------------------------------- | --------------------------------------------------------------- |
+| formId   | `string`                                                | ID of the typeform to edit                                      |
+| callback | `(action: string, payload: { formId: string }) => void` | Method to be called when a form is edited in Typeform Admin UI. |
 
 Example with JavaScript:
 
