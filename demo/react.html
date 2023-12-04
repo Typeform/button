@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Typeform Button Demo</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- code below is transpiled with @babel/standalone package -->
+    <!-- React and ReactDOM are injected into global scope -->
+    <script type="text/babel" data-type="module">
+      const { useState } = React
+
+      // install and import from '@typeform/button' package in your code
+      import { setDefaultConfiguration, selectForm, editForm } from './dist/index.js'
+
+      setDefaultConfiguration({ type: 'iframe', appName: 'react-demo-app' })
+
+      const SelectButton = ({ onSelect }) => {
+        const handleClick = () => {
+          selectForm({
+            callback: ({ action, formId }) => onSelect(formId),
+          })
+        }
+        return <button onClick={handleClick}>select form</button>
+      }
+
+      const EditButton = ({ formId }) => {
+        const handleClick = () => {
+          editForm({ formId })
+        }
+        return <button onClick={handleClick}>edit form</button>
+      }
+
+      const DemoPage = () => {
+        const [forms, setForms] = useState([])
+
+        const addTypeform = (formId) => setForms([...forms, formId])
+
+        const removeTypeform = (formId) => {
+          if (confirm(`Are you sure you want to remove typeform ${formId} from this list?`)) {
+            setForms(forms.filter((id) => id !== formId))
+          }
+        }
+
+        return (
+          <>
+            <h1>
+              Typeform Button Demo -{' '}
+              <a href="https://nodejs.org/api/esm.html#modules-ecmascript-modules">ECMAScript Module</a> in{' '}
+              <a href="https://react.dev/">React app</a>
+            </h1>
+            <SelectButton onSelect={addTypeform} />
+            {forms.length > 0 && (
+              <>
+                <p>Your typeforms:</p>
+                <ul>
+                  {forms.map((id) => (
+                    <li>
+                      {id} <EditButton formId={id} /> <button onClick={() => removeTypeform(id)}>remove</button>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </>
+        )
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('app'))
+      root.render(<DemoPage />)
+    </script>
+  </body>
+</html>

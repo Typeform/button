@@ -9,9 +9,9 @@
     <h1>Typeform Button Demo - Iframe JS</h1>
     <script src="dist/button.js"></script>
     <script>
-      window.tfEmbedAdmin.configure({ type: 'iframe' })
+      window.tfEmbedAdmin.setDefaultConfiguration({ type: 'iframe' })
 
-      const callback = (action, { formId }) => {
+      const callback = ({ action, formId }) => {
         if (action === 'edit') {
           console.log(`form ${formId} was edited`)
           return
@@ -30,10 +30,10 @@
         document.querySelector('#typeforms').append(li)
       }
       const selectTypeform = () => {
-        window.tfEmbedAdmin.selectForm(callback)
+        window.tfEmbedAdmin.selectForm({ callback })
       }
       const editTypeform = (formId) => {
-        window.tfEmbedAdmin.editForm(formId, callback)
+        window.tfEmbedAdmin.editForm({ formId, callback })
       }
     </script>
     <button onclick="selectTypeform()">select form</button>
