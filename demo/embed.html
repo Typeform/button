@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Typeform Button Demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        padding: 20px;
+      }
+      h1 {
+        margin: 10px 0 20px 0;
+      }
+      button {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      ul#typeforms {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+      }
+      ul#typeforms li {
+        width: 300px;
+        margin: 0 20px 20px 0;
+      }
+      ul#typeforms li img {
+        max-width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Typeform Button Demo - with Embed SDK</h1>
+
+    <!-- embed SDK -->
+    <link rel="stylesheet" href="//embed.typeform.com/next/css/popup.css" />
+    <script src="//embed.typeform.com/next/embed.js"></script>
+
+    <!-- typeform button -->
+    <script src="dist/button.js"></script>
+
+    <!-- custom script -->
+    <script>
+      window.tfEmbedAdmin.configure({ type: 'iframe', appName: 'embed-demo-app' })
+
+      const fetchTypeformDetails = async (formId) => {
+        const result = await fetch(
+          `https://form.typeform.com/oembed?url=${encodeURIComponent(`https://form.typeform.com/to/${formId}`)}`,
+        )
+        if (!result.ok) {
+          return {}
+        }
+        const data = await result.json()
+        const { title, author_url: url, thumbnail_url: image } = data || {}
+        return { title, url, image: image?.href ?? image }
+      }
+      const onSelect = async (action, { formId }) => {
+        console.log('selected form:', formId)
+
+        const { title, image } = await fetchTypeformDetails(formId)
+
+        const container = document.createElement('li')
+
+        const heading = document.createElement('h2')
+        heading.innerText = title
+        container.append(heading)
+
+        const thumbnail = document.createElement('img')
+        thumbnail.src = image
+        container.append(thumbnail)
+
+        const viewButton = document.createElement('button')
+        viewButton.onclick = () => {
+          window.tf.createPopup(formId).open()
+        }
+        viewButton.innerText = 'View'
+        container.append(viewButton)
+
+        const editButton = document.createElement('button')
+        editButton.onclick = () => editTypeform(formId)
+        editButton.innerText = 'Edit'
+        container.append(editButton)
+
+        const removeButton = document.createElement('button')
+        removeButton.onclick = () => {
+          if (window.confirm('Do you want to remove this typeform from the list?')) {
+            container.remove()
+          }
+        }
+        removeButton.innerText = 'Remove'
+        container.append(removeButton)
+
+        document.querySelector('#typeforms').append(container)
+      }
+      const onEdit = (action, { formId }) => {}
+      const selectTypeform = () => {
+        window.tfEmbedAdmin.selectForm(onSelect)
+      }
+      const editTypeform = (formId) => {
+        window.tfEmbedAdmin.editForm(formId, onEdit)
+      }
+    </script>
+    <button onclick="selectTypeform()">select form</button>
+    <ul id="typeforms"></ul>
+  </body>
+</html>
