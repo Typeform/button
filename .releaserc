@@ -19,7 +19,9 @@
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     "@semantic-release/npm",
-    "@semantic-release/git",
+    ["@semantic-release/exec", {
+      "successCmd": "yarn release:github"
+    }],
     "@semantic-release/github"
   ]
 }
