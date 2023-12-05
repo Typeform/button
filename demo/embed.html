@@ -45,7 +45,7 @@
 
     <!-- custom script -->
     <script>
-      window.tfEmbedAdmin.configure({ type: 'iframe', appName: 'embed-demo-app' })
+      window.tfEmbedAdmin.setDefaultConfiguration({ type: 'iframe', appName: 'embed-demo-app' })
 
       const fetchTypeformDetails = async (formId) => {
         const result = await fetch(
@@ -58,7 +58,7 @@
         const { title, author_url: url, thumbnail_url: image } = data || {}
         return { title, url, image: image?.href ?? image }
       }
-      const onSelect = async (action, { formId }) => {
+      const onSelect = async ({ action, formId }) => {
         console.log('selected form:', formId)
 
         const { title, image } = await fetchTypeformDetails(formId)
@@ -96,12 +96,14 @@
 
         document.querySelector('#typeforms').append(container)
       }
-      const onEdit = (action, { formId }) => {}
+      const onEdit = ({ action, formId }) => {
+        console.log(`Form ${formId} was edited`)
+      }
       const selectTypeform = () => {
-        window.tfEmbedAdmin.selectForm(onSelect)
+        window.tfEmbedAdmin.selectForm({ callback: onSelect })
       }
       const editTypeform = (formId) => {
-        window.tfEmbedAdmin.editForm(formId, onEdit)
+        window.tfEmbedAdmin.editForm({ formId, callback: onEdit })
       }
     </script>
     <button onclick="selectTypeform()">select form</button>

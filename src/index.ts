@@ -1,23 +1,12 @@
-import { open, EmbedAdminCallback, EmbedAdminType } from './lib/open'
+import { open, SelectActionPayload, EditActionPayload } from './lib/open'
+import { getDefaultConfig, setDefaultConfig } from './lib/default-config'
 
-export type ActionConfig = {
-  type?: EmbedAdminType
-  appName?: string
+export const setDefaultConfiguration = setDefaultConfig
+
+export const selectForm = (payload: SelectActionPayload) => {
+  return open({ ...getDefaultConfig(), ...payload, action: 'select' })
 }
 
-export const lib = {
-  config: {} as ActionConfig,
-
-  configure(config: ActionConfig) {
-    this.config = config
-    return this
-  },
-
-  selectForm(callback: EmbedAdminCallback) {
-    return open({ ...this.config, action: 'select', callback })
-  },
-
-  editForm(formId: string, callback: EmbedAdminCallback) {
-    return open({ ...this.config, action: 'edit', formId, callback })
-  },
+export const editForm = (payload: EditActionPayload) => {
+  return open({ ...getDefaultConfig(), ...payload, action: 'edit' })
 }

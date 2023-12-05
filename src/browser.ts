@@ -1,6 +1,6 @@
 import { initializeButtons } from './lib/initialize-buttons'
 
-import { lib } from './index'
+import * as lib from './index'
 
 export {}
 

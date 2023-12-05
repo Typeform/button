@@ -5,9 +5,10 @@ import { addMessageHandler, EmbedAdminAction } from './add-message-handler'
 
 export type EmbedAdminActionPayload = {
   formId: string
+  action: EmbedAdminAction
 }
 
-export type EmbedAdminCallback = (action: EmbedAdminAction, payload: EmbedAdminActionPayload) => void
+export type EmbedAdminCallback = (payload: EmbedAdminActionPayload) => void
 
 export type EmbedAdminType = 'iframe' | 'popup'
 
@@ -17,13 +18,18 @@ export interface BaseActionConfig {
   callback: EmbedAdminCallback
 }
 
-interface SelectActionConfig extends BaseActionConfig {
+export interface SelectActionPayload extends BaseActionConfig {}
+
+interface SelectActionConfig extends SelectActionPayload {
   action: 'select'
 }
 
-interface EditActionConfig extends BaseActionConfig {
+export interface EditActionPayload extends BaseActionConfig {
+  formId: string
+}
+
+interface EditActionConfig extends EditActionPayload {
   action: 'edit'
-  formId: string // This makes `formId` required when `action` is set to `'edit'`
 }
 
 export type EmbedAdminActionConfig = SelectActionConfig | EditActionConfig
@@ -39,7 +45,7 @@ export const open: OpenTypeformEmbedAdmin = (config) => {
 
   const removeMessageHandler = addMessageHandler((formId: string) => {
     close()
-    callback && callback(action, { formId })
+    callback && callback({ action, formId })
   })
 
   const { close } = type === 'iframe' ? buildIframe(url, removeMessageHandler) : buildPopup(url, removeMessageHandler)

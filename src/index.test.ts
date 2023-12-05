@@ -1,48 +1,86 @@
 import { open } from './lib/open'
+import { setDefaultConfig } from './lib/default-config'
 
-import { lib } from './index'
+import { setDefaultConfiguration, selectForm, editForm } from './index'
 
 jest.mock('./lib/open')
 
 describe('#lib', () => {
+  const callback = jest.fn()
+
   beforeEach(() => {
     ;(open as jest.Mock).mockReset()
-  })
-
-  describe('#configure', () => {
-    it('should set config', () => {
-      lib.configure({ type: 'iframe', appName: 'jest-app' })
-      expect(lib.config.type).toBe('iframe')
-      expect(lib.config.appName).toBe('jest-app')
-    })
+    setDefaultConfig({})
   })
 
   describe('#selectForm', () => {
-    it('should call open function with correct payload', () => {
-      const callback = jest.fn()
-      lib.configure({ type: 'iframe', appName: 'jest-app' })
-      lib.selectForm(callback)
+    it('should use no configuration', () => {
+      selectForm({ callback })
+      expect(open).toHaveBeenCalledTimes(1)
+      expect(open).toHaveBeenCalledWith({
+        action: 'select',
+        callback,
+      })
+    })
+
+    it('should use default configuration', () => {
+      setDefaultConfiguration({ type: 'iframe', appName: 'jest-app-1' })
+      selectForm({ callback })
       expect(open).toHaveBeenCalledTimes(1)
       expect(open).toHaveBeenCalledWith({
         action: 'select',
         type: 'iframe',
-        appName: 'jest-app',
+        appName: 'jest-app-1',
+        callback,
+      })
+    })
+
+    it('should use custom configuration', () => {
+      setDefaultConfiguration({ type: 'iframe', appName: 'jest-app-1' })
+      selectForm({ callback, type: 'popup', appName: 'jest-app-8' })
+      expect(open).toHaveBeenCalledTimes(1)
+      expect(open).toHaveBeenCalledWith({
+        action: 'select',
+        type: 'popup',
+        appName: 'jest-app-8',
         callback,
       })
     })
   })
 
   describe('#editForm', () => {
-    it('should call open function with correct payload', () => {
-      const callback = jest.fn()
-      lib.configure({ type: 'iframe', appName: 'jest-app' })
-      lib.editForm('1234', callback)
+    it('should use no configuration', () => {
+      editForm({ formId: '1234', callback })
+      expect(open).toHaveBeenCalledTimes(1)
+      expect(open).toHaveBeenCalledWith({
+        action: 'edit',
+        formId: '1234',
+        callback,
+      })
+    })
+
+    it('should use default configuration', () => {
+      setDefaultConfiguration({ type: 'popup', appName: 'jest-app-2' })
+      editForm({ formId: '1234', callback })
+      expect(open).toHaveBeenCalledTimes(1)
+      expect(open).toHaveBeenCalledWith({
+        action: 'edit',
+        formId: '1234',
+        type: 'popup',
+        appName: 'jest-app-2',
+        callback,
+      })
+    })
+
+    it('should use custom configuration', () => {
+      setDefaultConfiguration({ type: 'popup', appName: 'jest-app-2' })
+      editForm({ formId: '1234', callback, type: 'iframe', appName: 'jest-app-3' })
       expect(open).toHaveBeenCalledTimes(1)
       expect(open).toHaveBeenCalledWith({
         action: 'edit',
         formId: '1234',
         type: 'iframe',
-        appName: 'jest-app',
+        appName: 'jest-app-3',
         callback,
       })
     })

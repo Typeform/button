@@ -1,13 +1,13 @@
 {
-  "name": "button",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "@typeform/button",
+  "version": "0.0.0-semantic-released",
+  "main": "./dist/index.js",
   "license": "MIT",
   "engines": {
     "node": ">=18"
   },
   "scripts": {
-    "build": "esbuild index=src/index.ts button=src/browser.ts --bundle",
+    "build": "esbuild index=src/index.ts button=src/browser.ts --bundle --format=esm --minify --sourcemap",
     "watch": "yarn build --watch",
     "dist": "yarn build --outdir=dist",
     "start": "yarn watch --serve=9090 --servedir=demo --outdir=demo/dist",
@@ -16,12 +16,17 @@
     "prettier": "prettier --write . --ignore-path .eslintignore",
     "test": "jest",
     "release": "yarn release:npm && yarn release:aws",
-    "release:npm": "echo 'todo'",
+    "release:npm": "yarn semantic-release",
     "release:aws": "DEBUG=jarvis yarn run jarvis deploy --path ./dist"
   },
-  "dependencies": {},
   "devDependencies": {
     "@commitlint/config-conventional": "^18.4.2",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^11.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.2.4",
+    "@semantic-release/npm": "^11.0.1",
+    "@semantic-release/release-notes-generator": "^12.1.0",
     "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^6.1.4",
     "@typeform/eslint-config": "^6.0.3",
@@ -36,6 +41,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^22.1.0",
     "prettier": "^3.1.0",
+    "semantic-release": "^22.0.8",
     "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
   },
@@ -45,6 +51,12 @@
       "@typeform/eslint-config",
       "prettier",
       "plugin:prettier/recommended"
+    ]
+  },
+  "release": {
+    "branches": [
+      "main",
+      "next"
     ]
   }
 }

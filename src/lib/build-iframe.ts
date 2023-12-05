@@ -8,6 +8,7 @@ export const buildIframe = (url: string, onClose: VoidFunction) => {
   wrapper.style.width = '100%'
   wrapper.style.height = '100%'
   wrapper.style.backgroundColor = 'rgba(0,0,0,0.75)'
+  wrapper.style.zIndex = '10000'
 
   const iframe = document.createElement('iframe')
   iframe.src = url

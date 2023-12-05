@@ -11,10 +11,10 @@
     <ul id="typeforms"></ul>
     <script src="dist/button.js"></script>
     <script>
-      function handleEdit(action, { formId }) {
+      function handleEdit({ action, formId }) {
         console.log(`form ${formId} was edited`)
       }
-      function handleSelect(action, { formId }) {
+      function handleSelect({ action, formId }) {
         console.log(action, formId)
         const editButton = `<button data-tf-embed-admin-edit="${formId}" data-tf-embed-admin-callback="handleEdit">edit</button>`
         document.querySelector('#typeforms').innerHTML += `<li>${formId} ${editButton}</li>`

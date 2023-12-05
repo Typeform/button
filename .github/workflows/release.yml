@@ -53,8 +53,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_CLOUDFRONT_DIST: 'E3IUO95IYL1RI3'
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          JARVIS_NOTIFY_PREVIEW_TEMPLATE: ${{ secrets.JARVIS_NOTIFY_PREVIEW_TEMPLATE }}
           PUBLIC_CDN_URL: 'https://btn.typeform.com'
           SEGMENT_WRITE_KEY: ${{ secrets.DEPLOYMENT_SEGMENT_WRITE_KEY }}
 
