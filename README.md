@@ -89,23 +89,23 @@ window.tfEmbedAdmin.setDefaultConfiguration({
 
 When using HTML API you don't need to call this method separately. You need to specify config options on the button itself.
 
-### selectForm({ callback})
+### selectForm({ callback })
 
 Open embed admin to select form or create a new one.
 
 It accepts an object with the following props:
 
-| name     | type                                                    | description                                                       |
-| -------- | ------------------------------------------------------- | ----------------------------------------------------------------- |
-| callback | `(payload: { action: string, formId: string }) => void` | Method to be called when a form is selected in Typeform Admin UI. |
-| type     | `"iframe" \| "popup"`                                   | Optional. See `setDefaultConfiguration` above.                    |
-| appName  | `string`                                                | Optional. See `setDefaultConfiguration` above.                    |
+| name     | type                                                                                         | description                                                       |
+| -------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| callback | `(payload: { action: string, formId: string, fetchFormDetails: () => Promise<{}> }) => void` | Method to be called when a form is selected in Typeform Admin UI. |
+| type     | `"iframe" \| "popup"`                                                                        | Optional. See `setDefaultConfiguration` above.                    |
+| appName  | `string`                                                                                     | Optional. See `setDefaultConfiguration` above.                    |
 
 Example with JavaScript:
 
 ```javascript
 window.tfEmbedAdmin.selectForm({
-  callback: ({ action, formId }) => console.log(`you just selected form id: ${formId}`),
+  callback: ({ action, formId, fetchFormDetails }) => console.log(`you just selected form id: ${formId}`),
 })
 ```
 
@@ -121,7 +121,7 @@ Or with HTML API:
   select typeform
 </button>
 <script>
-  function embedAdminCallback({ action }) {
+  function embedAdminCallback({ action, formId, fetchFormDetails }) {
     // callback function needs to be available on global scope (window)
   }
 </script>
@@ -133,19 +133,19 @@ Open embed admin to edit a specific form.
 
 It accepts an object with the following props:
 
-| name     | type                                                    | description                                                     |
-| -------- | ------------------------------------------------------- | --------------------------------------------------------------- |
-| formId   | `string`                                                | ID of the typeform to edit                                      |
-| callback | `(payload: { action: string, formId: string }) => void` | Method to be called when a form is edited in Typeform Admin UI. |
-| type     | `"iframe" \| "popup"`                                   | Optional. See `setDefaultConfiguration` above.                  |
-| appName  | `string`                                                | Optional. See `setDefaultConfiguration` above.                  |
+| name     | type                                                                                         | description                                                     |
+| -------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| formId   | `string`                                                                                     | ID of the typeform to edit                                      |
+| callback | `(payload: { action: string, formId: string, fetchFormDetails: () => Promise<{}> }) => void` | Method to be called when a form is edited in Typeform Admin UI. |
+| type     | `"iframe" \| "popup"`                                                                        | Optional. See `setDefaultConfiguration` above.                  |
+| appName  | `string`                                                                                     | Optional. See `setDefaultConfiguration` above.                  |
 
 Example with JavaScript:
 
 ```javascript
 window.tfEmbedAdmin.editForm({
   formId: myTypeformId,
-  callback: ({ action, formId }) => console.log(`you just edited form id: ${formId}`),
+  callback: ({ action, formId, fetchFormDetails }) => console.log(`you just edited form id: ${formId}`),
 })
 ```
 
@@ -161,10 +161,25 @@ Or with HTML API:
   edit typeform
 </button>
 <script>
-  function embedAdminCallback({ action, formId }) {
+  function embedAdminCallback({ action, formId, fetchFormDetails }) {
     // callback function needs to be available on global scope (window)
   }
 </script>
+```
+
+### fetchFormDetails()
+
+The callback receives `fetchFormDetails` async method in the payload. You can use this method to fetch details about currently selected / edited form. It returns `title`, `url` and `imageUrl` of the meta image.
+
+Usage:
+
+```javascript
+window.tfEmbedAdmin.selectForm({
+  callback: async ({ action, formId, fetchFormDetails }) => {
+    const { title, url } = await fetchFormDetails()
+    console.log(`You selected form named ${title}. You can visit it at ${url}.`)
+  },
+})
 ```
 
 ## Demo
@@ -175,9 +190,11 @@ Run:
 yarn start
 ```
 
-Demo implementation of the library will be served at http://localhost:9090
+Demo implementation of the library will be served at http://localhost:1337
 
 Or [open the demo in CodeSandbox](https://codesandbox.io/s/github/Typeform/button), directly in your browser.
+
+_Note:_ Examples with iframe only work on localhost.
 
 ## Development
 

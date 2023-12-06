@@ -2,10 +2,12 @@ import { getEmbedAdminDefaultAppName, getEmbedAdminUrl } from './utils'
 import { buildIframe } from './build-iframe'
 import { buildPopup } from './build-popup'
 import { addMessageHandler, EmbedAdminAction } from './add-message-handler'
+import { fetchFormDetails, FormDetails } from './fetch-form-details'
 
 export type EmbedAdminActionPayload = {
   formId: string
   action: EmbedAdminAction
+  fetchFormDetails: () => Promise<FormDetails>
 }
 
 export type EmbedAdminCallback = (payload: EmbedAdminActionPayload) => void
@@ -43,9 +45,9 @@ export const open: OpenTypeformEmbedAdmin = (config) => {
   const formId = hasFormId(config) ? config.formId : undefined
   const url = getEmbedAdminUrl(action, appName ?? getEmbedAdminDefaultAppName(), formId)
 
-  const removeMessageHandler = addMessageHandler((formId: string) => {
+  const removeMessageHandler = addMessageHandler(async (formId: string) => {
     close()
-    callback && callback({ action, formId })
+    callback && callback({ action, formId, fetchFormDetails: () => fetchFormDetails(formId) })
   })
 
   const { close } = type === 'iframe' ? buildIframe(url, removeMessageHandler) : buildPopup(url, removeMessageHandler)

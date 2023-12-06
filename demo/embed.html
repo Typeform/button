@@ -47,21 +47,10 @@
     <script>
       window.tfEmbedAdmin.setDefaultConfiguration({ type: 'iframe', appName: 'embed-demo-app' })
 
-      const fetchTypeformDetails = async (formId) => {
-        const result = await fetch(
-          `https://form.typeform.com/oembed?url=${encodeURIComponent(`https://form.typeform.com/to/${formId}`)}`,
-        )
-        if (!result.ok) {
-          return {}
-        }
-        const data = await result.json()
-        const { title, author_url: url, thumbnail_url: image } = data || {}
-        return { title, url, image: image?.href ?? image }
-      }
-      const onSelect = async ({ action, formId }) => {
+      const onSelect = async ({ action, formId, fetchFormDetails }) => {
         console.log('selected form:', formId)
 
-        const { title, image } = await fetchTypeformDetails(formId)
+        const { title, imageUrl } = await fetchFormDetails()
 
         const container = document.createElement('li')
 
@@ -70,7 +59,7 @@
         container.append(heading)
 
         const thumbnail = document.createElement('img')
-        thumbnail.src = image
+        thumbnail.src = imageUrl
         container.append(thumbnail)
 
         const viewButton = document.createElement('button')
