@@ -7,17 +7,26 @@
   </head>
   <body>
     <h1>Typeform Button Demo - Popup HTML</h1>
-    <button data-tf-embed-admin-select data-tf-embed-admin-callback="handleSelect">select typeform</button>
+    <button data-tf-embed-admin-select data-tf-embed-admin-callback="handleSelect" onclick="handleClick()">
+      select typeform
+    </button>
     <ul id="typeforms"></ul>
     <script src="dist/button.js"></script>
     <script>
-      function handleEdit({ action, formId }) {
-        console.log(`form ${formId} was edited`)
+      function handleClick() {
+        console.log('select button clicked')
       }
-      function handleSelect({ action, formId }) {
+      async function handleEdit({ action, formId, fetchFormDetails }) {
+        const { title } = await fetchFormDetails()
+        console.log(`form ${title} (${formId}) was edited`)
+      }
+      async function handleSelect({ action, formId, fetchFormDetails }) {
+        const id = `form-${Date.now()}`
+        document.querySelector('#typeforms').innerHTML += `<li id="${id}">loading...</li>`
+        const { title } = await fetchFormDetails()
         console.log(action, formId)
-        const editButton = `<button data-tf-embed-admin-edit="${formId}" data-tf-embed-admin-callback="handleEdit">edit</button>`
-        document.querySelector('#typeforms').innerHTML += `<li>${formId} ${editButton}</li>`
+        const editButton = `<button data-tf-embed-admin-edit="${formId}" data-tf-embed-admin-type="iframe" data-tf-embed-admin-callback="handleEdit">edit</button>`
+        document.querySelector(`#${id}`).innerHTML = `${title} (${formId}) ${editButton}`
         window.tfEmbedAdmin.load()
       }
     </script>

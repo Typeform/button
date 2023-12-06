@@ -11,16 +11,18 @@
     <script>
       window.tfEmbedAdmin.setDefaultConfiguration({ type: 'iframe' })
 
-      const callback = ({ action, formId }) => {
+      const callback = async ({ action, formId, fetchFormDetails }) => {
         if (action === 'edit') {
-          console.log(`form ${formId} was edited`)
+          const { title } = await fetchFormDetails()
+          console.log(`form ${title} (${formId}) was edited`)
           return
         }
 
         console.log('selected form:', formId)
 
         const li = document.createElement('li')
-        li.innerText = `Form: ${formId}`
+        li.id = `form-${Date.now()}`
+        li.innerHTML = `Form: <span>....</span> (${formId})`
 
         const button = document.createElement('button')
         button.onclick = () => editTypeform(formId)
@@ -28,6 +30,9 @@
         li.append(button)
 
         document.querySelector('#typeforms').append(li)
+
+        const { title } = await fetchFormDetails()
+        li.querySelector('span').innerText = title
       }
       const selectTypeform = () => {
         window.tfEmbedAdmin.selectForm({ callback })

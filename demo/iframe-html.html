@@ -21,13 +21,17 @@
       function handleClick() {
         console.log('select button clicked')
       }
-      function handleEdit({ action, formId }) {
-        console.log(`form ${formId} was edited`)
+      async function handleEdit({ action, formId, fetchFormDetails }) {
+        const { title } = await fetchFormDetails()
+        console.log(`form ${title} (${formId}) was edited`)
       }
-      function handleSelect({ action, formId }) {
+      async function handleSelect({ action, formId, fetchFormDetails }) {
+        const id = `form-${Date.now()}`
+        document.querySelector('#typeforms').innerHTML += `<li id="${id}">loading...</li>`
+        const { title } = await fetchFormDetails()
         console.log(action, formId)
         const editButton = `<button data-tf-embed-admin-edit="${formId}" data-tf-embed-admin-type="iframe" data-tf-embed-admin-callback="handleEdit">edit</button>`
-        document.querySelector('#typeforms').innerHTML += `<li>${formId} ${editButton}</li>`
+        document.querySelector(`#${id}`).innerHTML = `${title} (${formId}) ${editButton}`
         window.tfEmbedAdmin.load()
       }
     </script>
