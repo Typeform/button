@@ -11,7 +11,7 @@ As HTML button:
 
 ```html
 <button data-tf-embed-admin-select data-tf-embed-admin-callback="handleSelect">select typeform</button>
-<script src="dist/button.js"></script>
+<script src="//btn.typeform.com/button.js"></script>
 <script>
   // you still need to implement the callback in JavaScript
   function handleSelect({ action, formId }) {
@@ -24,7 +24,7 @@ Or using JavaScript:
 
 ```html
 <button onclick="selectTypeform()">select form</button>
-<script src="dist/button.js"></script>
+<script src="//btn.typeform.com/button.js"></script>
 <script>
   // you only need to configure settings once
   window.tfEmbedAdmin.setDefaultConfiguration({ type: 'iframe' })
