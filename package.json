@@ -9,7 +9,8 @@
   "scripts": {
     "build": "esbuild index=src/index.ts button=src/browser.ts --bundle --format=esm --minify --sourcemap",
     "watch": "yarn build --watch",
-    "dist": "yarn build --outdir=dist",
+    "add-dist-index": "echo \"<!DOCTYPE html><html><head><meta http-equiv='refresh' content='1; url=https://github.com/Typeform/button' /></head><body><p>Please follow <a href='https://github.com/Typeform/button'>this link</a> for button SDK.</p></body></html>\" > ./dist/index.html",
+    "dist": "yarn build --outdir=dist && yarn add-dist-index",
     "start": "yarn watch --serve=1337 --servedir=demo --outdir=demo/dist",
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx --max-warnings=0 && yarn prettier-check",
     "prettier-check": "prettier --check . --ignore-path .eslintignore",
