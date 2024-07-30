@@ -95,7 +95,7 @@ jobs:
   sonarcloud:
     name: Test and Code Quality Report (SonarCloud)
     needs:
-      - main
+      - build-lint-test
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
