@@ -45,6 +45,9 @@ jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     name: deploy-preview
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
@@ -82,12 +85,20 @@ jobs:
       - run: yarn add -W @typeform/jarvis
       - run: git checkout HEAD -- package.json # do not save jarvis dependency to package.json because it is private (the file is committed by semantic-release to bump version)
 
+      # authenticate to AWS
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: 'us-east-1'
+          mask-aws-account-id: true
+          role-to-assume: ${{ secrets.DEPLOYMENT_AWS_ROLE }}
+          role-session-name: ${{ github.run_id }}-${{ github.run_attempt }}
+          role-duration-seconds: 900
+          unset-current-credentials: true
+
       # deploy preview version of the package
       - run: yarn release:aws --preview --notify-preview
         env:
           AWS_ASSETS_BUCKET: 'typeform-public-assets/btn'
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           JARVIS_NOTIFY_PREVIEW_TEMPLATE: ${{ secrets.JARVIS_NOTIFY_PREVIEW_TEMPLATE }}
           PUBLIC_CDN_URL: 'https://btn.typeform.com'
