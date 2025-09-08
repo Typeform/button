@@ -2256,10 +2256,10 @@
     "@tufjs/canonical-json" "2.0.0"
     minimatch "^9.0.3"
 
-"@typeform/eslint-config@^6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@typeform/eslint-config/-/eslint-config-6.0.3.tgz#72984805a186261f6cf1d43d9eee380934310941"
-  integrity sha512-3KpGk4Q3hfbBO3syMXkXOicx/kaEYtTJ8DG9wt85k/7zqcdnuFGggHokB3Szb8uGyWjlLIt3WqpHZHnrtAhm4A==
+"@typeform/eslint-config@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@typeform/eslint-config/-/eslint-config-6.1.0.tgz#28c71503ae03607c66c25891740b3d90e5427e66"
+  integrity sha512-rJEFfN8ZW2Try6+COQ5yQoCkTomMd82IdPn6YxMjmcW2eQy5J/VBygG+o+UB3056Lk/k2aAHtoZJo7zx772lpg==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.44.0"
     "@typescript-eslint/parser" "^5.44.0"

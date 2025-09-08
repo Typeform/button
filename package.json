@@ -31,7 +31,7 @@
     "@semantic-release/release-notes-generator": "^12.1.0",
     "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^6.1.4",
-    "@typeform/eslint-config": "^6.0.3",
+    "@typeform/eslint-config": "^6.1.0",
     "@types/jest": "^29.5.8",
     "@typescript-eslint/parser": "^6.11.0",
     "commitlint": "^18.4.2",
