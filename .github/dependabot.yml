@@ -1,8 +1,9 @@
 version: 2
-
 updates:
   - package-ecosystem: npm
     directory: '/'
+    registries:
+      - gh-packages
     schedule:
       interval: weekly
     versioning-strategy: increase
@@ -17,7 +18,14 @@ updates:
       typeform:
         patterns:
           - '@typeform*'
-
+    cooldown:
+      default-days: 7
+      exclude:
+        - '@typeform/*'
+    ignore:
+      - dependency-name: semantic-release
+        versions:
+          - '>=25.0.0'
 registries:
   gh-packages:
     type: npm-registry
