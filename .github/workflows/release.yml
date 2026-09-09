@@ -44,7 +44,7 @@ jobs:
       - run: npm config set '//registry.npmjs.org/:_authToken' $NPM_TOKEN
       - run: npm config set '//npm.pkg.github.com/:_authToken' $GH_TOKEN
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.JENKINS_PAT_TOKEN }}
       - run: npm config set @typeform:registry https://npm.pkg.github.com/
 
       # install jarvis private package from github
@@ -65,7 +65,7 @@ jobs:
         env:
           AWS_ASSETS_BUCKET: 'typeform-public-assets/btn'
           AWS_CLOUDFRONT_DIST: 'E3IUO95IYL1RI3'
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.JENKINS_PAT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           JARVIS_NOTIFY_PREVIEW_TEMPLATE: ${{ secrets.JARVIS_NOTIFY_PREVIEW_TEMPLATE }}
           PUBLIC_CDN_URL: 'https://btn.typeform.com'

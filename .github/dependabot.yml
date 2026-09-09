@@ -30,4 +30,4 @@ registries:
   gh-packages:
     type: npm-registry
     url: https://npm.pkg.github.com
-    token: ${{ secrets.GH_TOKEN }}
+    token: ${{ secrets.JENKINS_PAT_TOKEN }}
