@@ -64,7 +64,7 @@ jobs:
       - run: yarn release
         env:
           AWS_ASSETS_BUCKET: 'typeform-public-assets/btn'
-          AWS_CLOUDFRONT_DIST: 'E3IUO95IYL1RI3'
+          AWS_CLOUDFRONT_DIST: 'E2U11Z0WX9K4F4' # btn.typeform.com
           GH_TOKEN: ${{ secrets.JENKINS_PAT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           JARVIS_NOTIFY_PREVIEW_TEMPLATE: ${{ secrets.JARVIS_NOTIFY_PREVIEW_TEMPLATE }}
